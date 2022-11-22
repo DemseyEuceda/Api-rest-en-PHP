@@ -1,0 +1,30 @@
+RewriteEngine On
+
+# esta lineas son para quitar la ext .php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+
+# esta lineas son para quitar la ext .html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html
+
+
+# Si la ruta no es un archivo existente, ni una carpeta
+# Reescribir al index
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([\w\d~%.:_\-]+)$ index.php?page=$1 [NC]
+RewriteRule  ^api/v1/producto$ producto.php
+RewriteRule api/v1/producto/([0-9]+) producto.php?id=$1
+
+
+#DirectoryIndex index.php
+#RewriteEngine on
+#RewriteBase /
+#RewriteCond %{HTTP} off
+#RewriteRule ^(.*)$ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php
